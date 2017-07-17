@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load money %}
+
+{% block content %}
+
+<h1>{{ category.category_name }}</h1>
+
+{% if products %}
+<div class="products">
+  <div class="product-grid">
+    {% for product in products %}
+      <div>
+        <img src="/{{product.image}}" alt="">
+        <a href="#"><span class="title">{{product.product_name}}</span></a>
+        <span class="price">{{product.price | format_money}}</span>
+        <form action="{% url 'add_to_basket' product.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Купить</button>
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

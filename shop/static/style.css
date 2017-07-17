@@ -1,0 +1,438 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 12px;
+  color: #fff;
+  margin: 0 auto;
+  width: 980px;
+  padding-top: 30px;
+  font-family: "Helvetica Neue";
+  background: #ddd;
+}
+
+.black-line {
+  background: #111;
+  display: flex;
+  justify-content: space-between;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 15px 30px;
+}
+
+.black-line .logo {
+  align-self: center;
+}
+
+.black-line a {
+  color: #ff208a;
+}
+
+.black-line span {
+  display: block;
+}
+
+.black-line .number {
+  font-size: 20px;
+}
+
+.black-line .current-city {
+  border-bottom: 1px dashed #fff;
+  font-size: 20px;
+}
+
+.black-line .time {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.black-line .order {
+  display: flex;
+}
+
+.black-line .order span {
+  color: #ff208a;
+}
+
+.black-line .order a {
+  color: #fff;
+}
+
+.black-line .order h3 {
+  color: #bbb;
+  font-size: 14px;
+  padding-top: 4px;
+  padding-bottom: 0;
+  text-align: center;
+}
+
+.black-line .order img {
+  margin-left: 20px;
+}
+
+.black-line .order .cart {
+  margin-top: 3px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.menu {
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+}
+
+.menu > div {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.menu a {
+  font-size: 14px;
+  color: #000;
+  text-decoration: none;
+  font-weight: 800;
+  padding: 0 15px;
+}
+
+.menu .search input {
+  border: none;
+}
+
+.menu .search {
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: 31px;
+  font-weight: 700;
+  color: #111;
+  background: #fff;
+  padding-top: 10px;
+  padding-left: 30px;
+}
+
+.menu .search input[type=submit] {
+  background-image: url(https://www.re-store.ru/bitrix/templates/restore/images/ui/icon_search.png);
+  width: 22px;
+  height: 22px;
+  margin-right: 6px;
+  cursor: hand;
+}
+
+.main {
+  display: flex;
+  padding: 8px 30px;
+  background: #fff;
+}
+
+.services a {
+  display: block;
+  text-decoration: none;
+  color: #111;
+  font-size: 11px;
+  border-bottom: 1px solid #aaa;
+  padding: 4px 0;
+}
+
+.main .content {
+  flex: 1;
+}
+
+.main #toggle-menu {
+  display: none;
+}
+
+.main .content .slideshow img {
+  margin: 0 auto;
+  margin-right: 0;
+}
+
+.main .content .slideshow .buttons {
+  text-align: center;
+  padding-top: 5px;
+}
+
+.mySlides {
+  border-radius: 8px;
+}
+
+.pics {
+  background: #fff;
+  padding: 0 30px;
+  height: 200px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pics img {
+  border-radius: 8px;
+}
+
+.products {
+  background: #fff;
+  padding: 0 30px;
+}
+
+.product-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-bottom: 30px;
+}
+
+.product-grid img {
+  width: 100%;
+}
+
+.product-grid > div {
+  flex-direction: column;
+  border: 1px solid transparent;
+  padding: 20px;
+  transition: 0.3s border;
+  width: 20%;
+  text-align: center;
+}
+
+
+.product-grid > div:hover {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+h3 {
+  margin: 0;
+  font-size: 31px;
+  font-weight: 700;
+  color: #111;
+  padding-top: 60px;
+  padding-bottom: 20px;
+}
+
+.product-grid span {
+  display: block;
+  color: #111;
+  padding: 5px 0;
+  font-size: 15px;
+}
+
+.product-grid a {
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.product-grid .price {
+  color: #ff208a;
+  font-size: 12px;
+}
+
+.product-grid button {
+  padding: 5px 40px;
+  background: linear-gradient(#fff, #ccc);
+  border-radius: 7px;
+  transition: 0.3s color;
+}
+
+.product-grid button:hover {
+  color: #ff208a;
+}
+
+.head {
+  display: flex;
+  background: #ccc;
+  border-top: 1px solid #aaa;
+}
+
+.head > div {
+  flex: 1;
+  color: #ff208a;
+  font-size: 18px;
+  text-align: center;
+  padding: 20px 30px;
+  cursor: hand;
+}
+
+.head > div.active {
+  color: #000;
+  background-color: #fff;
+}
+
+#house, #toys, #music {
+  display: none;
+}
+
+.down {
+  background: #111;
+  justify-content: space-between;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 15px 30px;
+  margin-bottom: 30px;
+}
+
+.basket {
+  background: #fff;
+  padding: 20px 30px;
+  font-size: 20px;
+}
+
+.basket h3{
+  margin: 0;
+  font-size: 31px;
+  font-weight: 700;
+  color: #111;
+  padding-top: 10px;
+}
+
+.basket .product > div {
+  border: 1px solid #eee;
+  border-radius: 5px;
+  color: #111;
+  height: 100px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.basket .product img {
+  width: 150px;
+  height: 100%;
+}
+
+.basket a {
+  text-decoration: none;
+  color: #111;
+}
+
+.basket .product .title {
+  flex: 3;
+  padding-left: 30px;
+}
+
+.basket .product .price {
+  flex: 5;
+}
+
+.basket .product .delete {
+  margin-right: 30px;
+}
+
+.basket .product .delete_pic {
+  height: 25px;
+  width: 25px;
+  opacity: 0.5;
+  transition: 0.3s opacity;
+}
+
+.basket .product .delete_pic:hover {
+  opacity: 1;
+}
+
+.basket .product .qty {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 2px 7px;
+  margin: 0 5px;
+  background: #eee;
+  transition: 0.3s backgroud-color;
+}
+
+.basket .qty:hover {
+  background-color: #ccc;
+}
+
+.basket .total {
+  text-align: right;
+}
+
+@media (max-width: 1000px) {
+  body {
+    width: 100%;
+    padding-top: 0;
+  }
+
+  .black-line {
+    border-radius: 0px;
+  }
+
+  .main img {
+    width: 100%;
+  }
+
+  .main {
+    flex-direction: column;
+  }
+
+  .services {
+    margin-bottom: 10px;
+  }
+
+  .services a {
+    font-size: 18px;
+  }
+
+  .menu .search input[type=text] {
+    width: 100%;
+  }
+
+  .pics {
+    display: none;
+  }
+
+}
+
+@media (max-width: 700px) {
+  .black-line .order img {
+    display: none;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction:  column-reverse;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .services a {
+    font-size: 23px;
+  }
+
+  .menu .search {
+    margin-top: 10px;
+  }
+
+  .main #toggle-menu {
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  .services {
+    display: none;
+  }
+
+  .products .product-grid > div {
+    width: 50%;
+  }
+
+  .basket .product > div {
+    font-size: 18px;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .basket .product > div img {
+    height: auto;
+  }
+
+}

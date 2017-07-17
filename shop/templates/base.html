@@ -1,0 +1,46 @@
+{% load static %}
+{% load money %}
+
+<head>
+  <title>Shopique</title>
+  <link rel="stylesheet" type="text/css" href="/static/style.css" />
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+  <div class="header">
+    <div class="black-line">
+      <div class="logo"><a href="/"><img src="https://www.re-store.ru/bitrix/templates/restore/images/ui/logo.svg" alt=""></a></div>
+      <div>
+        Справочная служба
+        <span class="number">8 (800) 700-19-44</span>
+        <span class="time">круглосуточно, без выходных</span>
+      </div>
+      <div class="order">
+        <div>
+          <a href="#">Вход</a>
+          <a href="#">Регистрация</a>
+          <span class="cart"><a href="{% url 'basket' %}">Корзина</a> {{number}} шт.</span>
+          <h3>на {{basket_total | format_money}}</h3>
+        </div>
+        <div><img src="https://www.re-store.ru/bitrix/templates/restore/images/ui/logo_apr.png" alt=""></div>
+      </div>
+    </div>
+  </div>
+  <div class="menu">
+    <form class="search" method="get">
+      <input type="text" name="query" value="{{ request.GET.query }}">
+      <input type="submit" value="">
+    </form>
+    <div>
+      {% if all_categories %}
+        {% for category in all_categories %}
+          <a href="{% url 'products' category.category_name %}">{{category.category_name}}</a>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+  {% block content %}
+  {% endblock %}
+  <div class="down"></div>
+</body>
+</html>

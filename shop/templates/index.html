@@ -1,0 +1,278 @@
+{% extends 'base.html' %}
+{% load money %}
+
+{% block content %}
+<div class="main">
+  <button id="toggle-menu">Показать меню</button>
+  <div class="services">
+    <a href="#">О компании</a>
+    <a href="#">Каталог</a>
+    <a href="#">Покупка в кредит</a>
+    <a href="#">Распродажа</a>
+    <a href="#">Бонусная программа</a>
+    <a href="#">Гарантии</a>
+    <a href="#">Сервисная программа</a>
+    <a href="#">Оплата и доставка</a>
+    <a href="#">Обмен и возврат</a>
+    <a href="#">Преимущества re:Store</a>
+    <a href="#">Академия re:Store</a>
+    <a href="#">Обучение</a>
+    <a href="#">Контакты</a>
+    <a href="#">Вакансии</a>
+    <a href="#">Услуги</a>
+    <a href="#">Бизнес</a>
+  </div>
+  <div class="content">
+    <div class="slideshow">
+      <img class="slide" src="https://www.re-store.ru/upload/iblock/8d3/8d3b93a1d6427b8044bc94361baa0168.png">
+      <img class="slide" src="https://www.re-store.ru/upload/iblock/373/373c11c7e254ef82c216769c2072b64d.png">
+      <img class="slide" src="https://www.re-store.ru/upload/iblock/51a/51a4ef350100286a907cc049988ba5f7.png">
+      <div class="buttons">
+        <button id="prev">&#10094;</button>
+        <button id="next">&#10095;</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pics">
+  <img src="https://www.re-store.ru/bitrix/templates/restore/images/blog_banner.png" alt="">
+  <img src="https://www.re-store.ru/upload/iblock/186/186c7df0eb2849ccb3be571973dd3e61.png" alt="">
+  <img src="https://www.re-store.ru/upload/iblock/857/857e28e080943e6e7cf2f489a00a36fe.png" alt="">
+</div>
+{% if recommended_products %}
+  <div class="products">
+    <h3>re:Store рекомендует</h3>
+    <div class="product-grid">
+      {% for product in recommended_products %}
+        <div>
+          <img src="/{{product.image}}" alt="">
+          <a href="#"><span class="title">{{product.product_name}}</span></a>
+          <span class="price">{{product.price | format_money}}</span>
+          <form action="{% url 'add_to_basket' product.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Купить</button>
+          </form>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+<div class="head">
+  <div id="health_link" class="active">Здоровье</div>
+  <div id="house_link">Умный дом</div>
+  <div id="toys_link">Игрушки</div>
+  <div id="music_link">Музыка</div>
+</div>
+<div class="products">
+  <div class="product-grid" id="health">
+    <div>
+      <img src="https://www.re-store.ru/upload/resize_cache/iblock/694/130_100_0a1fde8d5e7dcaa11be442336c9d37f5e/69438af3cfc811049c8cece0e865c72f.jpg" alt="">
+      <span class="title">Apple Mac Pro</span>
+      <span class="price">249 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://www.re-store.ru/upload/resize_cache/iblock/b51/130_100_0a1fde8d5e7dcaa11be442336c9d37f5e/b519de929391f081809f4a6c2fc0c145.jpg" alt="">
+      <span class="title">Apple MacBook Pro 15"</span>
+      <span class="price">144 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://www.re-store.ru/upload/resize_cache/iblock/b53/130_100_0a1fde8d5e7dcaa11be442336c9d37f5e/b532830b3f2cf6edcb0df798a2bc746c.jpg" alt="">
+      <span class="title">Apple MacBook Pro 15"</span>
+      <span class="price">188 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://www.re-store.ru/upload/resize_cache/iblock/c53/130_100_0a1fde8d5e7dcaa11be442336c9d37f5e/c53ac94b7b0aae32e877f1e14885ee8d.jpg" alt="">
+      <span class="title">Apple MacBook 12"</span>
+      <span class="price">116 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://www.re-store.ru/upload/resize_cache/iblock/a49/130_100_0a1fde8d5e7dcaa11be442336c9d37f5e/a49455cbb2b5dac805b4ee7d6af89aa3.jpg" alt="">
+      <span class="title">Apple iPhone 6 32 Гб</span>
+      <span class="price">27 990 руб.</span>
+    </div>
+  </div>
+  <div class="product-grid" id="house">
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/145014/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple Mac Pro</span>
+      <span class="price">249 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/281943/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple MacBook Pro 15"</span>
+      <span class="price">144 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/2244436/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple MacBook Pro 15"</span>
+      <span class="price">188 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/2244406/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple MacBook 12"</span>
+      <span class="price">116 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/2231808/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple iPhone 6 32 Гб</span>
+      <span class="price">27 990 руб.</span>
+    </div>
+  </div>
+  <div class="product-grid" id="toys">
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/145014/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple Mac Pro</span>
+      <span class="price">249 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/281943/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple MacBook Pro 15"</span>
+      <span class="price">144 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/2244436/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple MacBook Pro 15"</span>
+      <span class="price">188 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/2244406/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple MacBook 12"</span>
+      <span class="price">116 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/2231808/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple iPhone 6 32 Гб</span>
+      <span class="price">27 990 руб.</span>
+    </div>
+  </div>
+  <div class="product-grid" id="music">
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/145014/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple Mac Pro</span>
+      <span class="price">249 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/281943/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple MacBook Pro 15"</span>
+      <span class="price">144 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/2244436/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple MacBook Pro 15"</span>
+      <span class="price">188 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/2244406/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple MacBook 12"</span>
+      <span class="price">116 990 руб.</span>
+    </div>
+    <div>
+      <img src="https://cdn.retailrocket.ru/api/1.0/partner/53ec6fb51e99442950d2daf0/item/2231808/picture/?format=png&width=130&height=89&scale=both" alt="">
+      <span class="title">Apple iPhone 6 32 Гб</span>
+      <span class="price">27 990 руб.</span>
+    </div>
+  </div>
+</div>
+
+<script>
+
+var slides = document.getElementsByClassName('slide');
+
+for (var i = 0; i < slides.length; i++) {
+  if (i === 0) {
+    slides[i].style.display = "block";
+  } else {
+    slides[i].style.display = "none";
+  }
+}
+
+var currentSlide = 0;
+
+function changeSlideShow(direction) {
+  if (direction === 'prev') {
+    if (currentSlide === 0) {
+      currentSlide = slides.length-1;
+    }else {
+      currentSlide -= 1;
+    }
+  } else if (direction === 'next') {
+    if (currentSlide === slides.length-1) {
+      currentSlide = 0;
+    }else {
+      currentSlide += 1;
+    }
+  }
+  slides[currentSlide].style.display = "block";
+  for (var i = 0; i < slides.length; i++) {
+    if (i !== currentSlide) {
+      slides[i].style.display = "none";
+    }
+  }
+}
+
+var buttonPrev = document.getElementById('prev')
+buttonPrev.addEventListener('click', function () {
+  changeSlideShow('prev')
+})
+var buttonNext = document.getElementById('next')
+buttonNext.addEventListener('click', function () {
+  changeSlideShow('next')
+})
+
+function changeSlide(id) {
+  var health = document.getElementById("health");
+  var healthLink = document.getElementById("health_link")
+  var house = document.getElementById("house");
+  var houseLink = document.getElementById("house_link")
+  var toys = document.getElementById("toys");
+  var toysLink = document.getElementById("toys_link")
+  var music = document.getElementById("music");
+  var musicLink = document.getElementById("music_link")
+  health.style.display = "none";
+  healthLink.classList.remove('active');
+  house.style.display = "none";
+  houseLink.classList.remove('active');
+  toys.style.display = "none";
+  toysLink.classList.remove('active');
+  music.style.display = "none";
+  musicLink.classList.remove('active');
+  if (id == "health") {
+    health.style.display = "flex";
+    healthLink.classList.add('active');
+  } else if (id == "house") {
+    house.style.display = "flex";
+    houseLink.classList.add('active');
+  } else if (id == "toys") {
+    toys.style.display = "flex";
+    toysLink.classList.add('active');
+  } else if (id == "music"){
+    music.style.display = "flex";
+    musicLink.classList.add('active');
+  }
+}
+
+var slideLinks = document.querySelectorAll('.head > div');
+for (let slideLink of slideLinks) {
+  let slideName = slideLink.id.replace('_link', '');
+  slideLink.addEventListener('mouseenter', function () {
+    changeSlide(slideName)
+  });
+}
+
+function toggleMenu(event) {
+  var services = document.getElementsByClassName('services')[0];
+  var button = document.getElementById('toggle-menu');
+  var style = window.getComputedStyle(services);
+  if (style.display === "none") {
+    services.style.display = "block";
+    button.textContent = "Скрыть меню";
+  } else {
+    services.style.display = "none";
+    button.textContent = "Показать меню";
+  }
+}
+
+var button = document.getElementById('toggle-menu');
+button.addEventListener('click', toggleMenu);
+</script>
+{% endblock %}

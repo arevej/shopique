@@ -28,7 +28,13 @@
       </div>
     {% endfor %}
   </div>
-  <h3 class="total">Итого: {{ order.total | format_money }}</h3>
+  <h3 class="total">Итого: {{ order.subtotal | format_money }}</h3>
+  {% if order.promo %}
+  <div class="total">
+    Скидка ({{ order.promo.promocode }}): {{ order.discount_ammount | format_money }}
+    <h3 class="total_sum">Итого со скидкой: {{ order.total | format_money }}</h3>
+  </div>
+  {% endif %}
 
 </div>
 

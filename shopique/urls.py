@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='main'),
     url(r'^basket/$', views.basket, name='basket'),
+    url(r'^add_promo/$', views.add_promo, name='add_promo'),
     url(r'^category/(?P<category_name>[a-zA-Z0-9]+)/$', views.product_list, name='products'),
     url(r'^add_to_basket/(?P<product_id>[0-9]+)/$', views.add_product, name='add_to_basket'),
     url(r'^delete_product/(?P<product_id>[0-9]+)/$', views.delete_product, name='delete_product'),

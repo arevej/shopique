@@ -18,8 +18,13 @@ class Product(models.Model):
     def __str__(self):
         return self.product_name
 
+class Promo(models.Model):
+    promocode = models.CharField(max_length=30)
+    discount_percent = models.FloatField()
+
 class Basket(models.Model):
-    def total(self):
+    promo = models.ForeignKey(Promo, null=True, on_delete=models.PROTECT)
+    def subtotal(self):
         total = 0
         for lineitem in self.lineitem_set.all():
             total += lineitem.total()
@@ -59,6 +64,12 @@ class Basket(models.Model):
                 lineitem.qty -= 1
                 lineitem.save()
 
+    def discount_ammount(self):
+        return self.subtotal() * self.promo.discount_percent
+
+    def total(self):
+        return self.subtotal()-self.discount_ammount()
+
 class LineItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     basket = models.ForeignKey(Basket, on_delete=models.CASCADE)
@@ -74,12 +85,17 @@ class Order(models.Model):
     delivery_country = models.CharField(max_length=100)
     delivery_city = models.CharField(max_length=100)
     delivery_address = models.CharField(max_length=100)
+    promo = models.ForeignKey(Promo, null=True, on_delete=models.PROTECT)
+    discount_ammount = models.FloatField()
 
-    def total(self):
+    def subtotal(self):
         total = 0
         for lineitem in self.lineitemorder_set.all():
             total += lineitem.total()
         return total
+
+    def total(self):
+        return self.subtotal() - self.discount_ammount
 
 
 class LineItemOrder(models.Model):

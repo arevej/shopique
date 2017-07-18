@@ -24,7 +24,22 @@
       </div>
     {% endfor %}
   </div>
-  <h3 class="total">Итого: {{ basket.total | format_money }}</h3>
+  {% if not basket.promo %}
+    <div class="promo">
+      <form method="post" action="{% url 'add_promo' %}">
+        {% csrf_token %}
+        <input type="text" placeholder="Промокод" name="promo">
+        <button type="submit">Применить</button>
+      </form>
+    </div>
+  {% endif %}
+  <h3 class="subtotal">Итого: {{ basket.subtotal | format_money }}</h3>
+  {% if basket.promo %}
+  <div class="total">
+    Скидка ({{ basket.promo.promocode }}): {{ basket.discount_ammount | format_money }}
+    <h3 class="total_sum">Итого со скидкой: {{ basket.total | format_money }}</h3>
+  </div>
+  {% endif %}
   <div class="buy-div">
     <a class="buy" href="{% url 'place_order' %}">Оформить заказ</a>
   </div>

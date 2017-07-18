@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load money %}
+
+{% block content %}
+
+<div class="basket">
+  <h3>Заказ принят</h3>
+  <div class="buyer-info">
+  Имя: {{ order.buyer_name }}<br>
+  Телефон: {{ order.buyer_number }}<br>
+  Страна: {{ order.delivery_country }}<br>
+  Город: {{ order.delivery_city }}<br>
+  Адрес: {{ order.delivery_address }}<br>
+  </div>
+  <div class="product">
+    {% for lineitem in order.lineitemorder_set.all %}
+      <div>
+        <img src="/{{ lineitem.product.image }}" alt="">
+        <span class="title">
+          <a href="#">{{ lineitem.product.product_name }}</a>
+        </span>
+        &nbsp;
+        <div class="price">
+          {{lineitem.product.price | format_money }} &times;
+          {{ lineitem.qty }}
+          = {{ lineitem.total | format_money }}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <h3 class="total">Итого: {{ order.total | format_money }}</h3>
+
+</div>
+
+
+{% endblock %}

@@ -30,6 +30,8 @@ urlpatterns = [
     url(r'^delete_product/(?P<product_id>[0-9]+)/$', views.delete_product, name='delete_product'),
     url(r'^increment_qty/(?P<product_id>[0-9]+)/$', views.increment_qty, name='increment_qty'),
     url(r'^decrement_qty/(?P<product_id>[0-9]+)/$', views.decrement_qty, name='decrement_qty'),
+    url(r'^place_order/$', views.place_order, name='place_order'),
+    url(r'^order_confirmation/(?P<order_id>[0-9]+)/$', views.order_confirmation, name='order_confirmation'),
 ]
 
 urlpatterns += static('/images/', document_root=os.path.join(settings.BASE_DIR, 'images'))

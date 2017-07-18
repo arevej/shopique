@@ -47,19 +47,19 @@ body {
   color: #aaa;
 }
 
-.black-line .order {
+.black-line .basket-mini {
   display: flex;
 }
 
-.black-line .order span {
+.black-line .basket-mini span {
   color: #ff208a;
 }
 
-.black-line .order a {
+.black-line .basket-mini a {
   color: #fff;
 }
 
-.black-line .order h3 {
+.black-line .basket-mini h3 {
   color: #bbb;
   font-size: 14px;
   padding-top: 4px;
@@ -67,11 +67,11 @@ body {
   text-align: center;
 }
 
-.black-line .order img {
+.black-line .basket-mini img {
   margin-left: 20px;
 }
 
-.black-line .order .cart {
+.black-line .basket-mini .cart {
   margin-top: 3px;
   font-size: 15px;
   font-weight: 700;
@@ -352,6 +352,33 @@ h3 {
 
 .basket .total {
   text-align: right;
+  padding-bottom: 10px;
+}
+
+.basket .buy-div {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.basket .buy {
+  padding: 3px 8px;
+  color: #ff208a;
+}
+
+.order {
+  background: #fff;
+  padding: 10px 30px;
+  font-size: 15px;
+  color: #111;
+}
+
+.order form input {
+  display: block;
+}
+
+.buyer-info {
+  color: #111;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 1000px) {
@@ -391,7 +418,7 @@ h3 {
 }
 
 @media (max-width: 700px) {
-  .black-line .order img {
+  .black-line .basket-mini img {
     display: none;
   }
 

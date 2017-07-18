@@ -25,6 +25,9 @@
     {% endfor %}
   </div>
   <h3 class="total">Итого: {{ basket.total | format_money }}</h3>
+  <div class="buy-div">
+    <a class="buy" href="{% url 'place_order' %}">Оформить заказ</a>
+  </div>
 </div>
 
 

@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from .models import Category, Product, Basket, LineItem
+from .models import Category, Product, Basket, LineItem, Order, LineItemOrder
 from django.db.models import Q
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 def index(request):
     if 'query' in request.GET:
@@ -53,3 +54,22 @@ def decrement_qty(request, product_id):
     basket = get_basket(request)
     basket.decrement(product)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def place_order(request):
+    if request.method == "GET":
+        return render(request, 'place_order.html', {})
+    else:
+         buyer_name = request.POST['buyer_name']
+         buyer_number = request.POST['buyer_number']
+         delivery_country = request.POST['delivery_country']
+         delivery_city = request.POST['delivery_city']
+         delivery_address = request.POST['delivery_address']
+         order = Order.objects.create(buyer_name=buyer_name, buyer_number=buyer_number, delivery_country=delivery_country, delivery_city=delivery_city, delivery_address=delivery_address)
+         basket = get_basket(request)
+         for lineitem in basket.lineitem_set.all():
+             order.lineitemorder_set.create(product=lineitem.product, product_price=lineitem.product.price, product_qty=lineitem.qty)
+         return HttpResponseRedirect(reverse('order_confirmation', args=(order.id,)))
+
+def order_confirmation(request, order_id):
+    order = Order.objects.get(pk=order_id)
+    return render(request, 'order_confirmation.html', {'order':order})

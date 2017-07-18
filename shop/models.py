@@ -66,3 +66,27 @@ class LineItem(models.Model):
 
     def total(self):
         return self.product.price * self.qty
+
+
+class Order(models.Model):
+    buyer_name = models.CharField(max_length=30)
+    buyer_number = models.CharField(max_length=15)
+    delivery_country = models.CharField(max_length=100)
+    delivery_city = models.CharField(max_length=100)
+    delivery_address = models.CharField(max_length=100)
+
+    def total(self):
+        total = 0
+        for lineitem in self.lineitemorder_set.all():
+            total += lineitem.total()
+        return total
+
+
+class LineItemOrder(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_price = models.FloatField()
+    product_qty = models.IntegerField(default=1)
+
+    def total (self):
+        return self.product_price * self.product_qty

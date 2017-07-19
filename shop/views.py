@@ -3,6 +3,7 @@ from .models import Category, Product, Promo, Basket, LineItem, Order, LineItemO
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+import datetime
 
 def index(request):
     if 'query' in request.GET:
@@ -72,7 +73,8 @@ def place_order(request):
             delivery_city=delivery_city,
             delivery_address=delivery_address,
             promo = basket.promo,
-            discount_ammount = basket.discount_ammount()
+            discount_ammount = basket.discount_ammount(),
+            order_date = datetime.datetime.today()
          )
          for lineitem in basket.lineitem_set.all():
              order.lineitemorder_set.create(product=lineitem.product, product_price=lineitem.product.price, product_qty=lineitem.qty)
@@ -87,8 +89,11 @@ def add_promo(request):
     if request.POST['promo'] != '':
         try:
             promo = Promo.objects.get(promocode=request.POST['promo'])
-            basket.promo = promo
-            basket.save()
+            if promo.can_apply():
+                basket.promo = promo
+                basket.save()
+            else:
+                return render(request, 'basket.html', {'basket': basket, 'error': "can't be applied" })
         except:
             pass
     return HttpResponseRedirect(reverse('basket'))

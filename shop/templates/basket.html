@@ -31,6 +31,7 @@
         <input type="text" placeholder="Промокод" name="promo">
         <button type="submit">Применить</button>
       </form>
+        {{error}}
     </div>
   {% endif %}
   <h3 class="subtotal">Итого: {{ basket.subtotal | format_money }}</h3>

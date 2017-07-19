@@ -1,4 +1,6 @@
 from django.db import models
+import datetime
+from django.utils import timezone
 
 class Category(models.Model):
     category_name = models.CharField(max_length=200)
@@ -21,6 +23,23 @@ class Product(models.Model):
 class Promo(models.Model):
     promocode = models.CharField(max_length=30)
     discount_percent = models.FloatField()
+    start_date = models.DateTimeField(null=True, blank=True)
+    end_date = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.promocode
+
+    def can_apply(self):
+        now = timezone.now()
+        if self.start_date == None and self.end_date == None:
+            return True
+        elif self.start_date == None:
+            return now <= self.end_date
+        elif self.end_date == None:
+            return self.start_date <= now
+        else:
+            return self.start_date <= now <= self.end_date
+
 
 class Basket(models.Model):
     promo = models.ForeignKey(Promo, null=True, on_delete=models.PROTECT)
@@ -65,10 +84,14 @@ class Basket(models.Model):
                 lineitem.save()
 
     def discount_ammount(self):
-        return self.subtotal() * self.promo.discount_percent
+        if self.promo:
+            return self.subtotal() * self.promo.discount_percent
 
     def total(self):
-        return self.subtotal()-self.discount_ammount()
+        if self.promo:
+            return self.subtotal()-self.discount_ammount()
+        else:
+            return self.subtotal()
 
 class LineItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -85,6 +108,7 @@ class Order(models.Model):
     delivery_country = models.CharField(max_length=100)
     delivery_city = models.CharField(max_length=100)
     delivery_address = models.CharField(max_length=100)
+    order_date = models.DateTimeField()
     promo = models.ForeignKey(Promo, null=True, on_delete=models.PROTECT)
     discount_ammount = models.FloatField()
 
@@ -95,7 +119,10 @@ class Order(models.Model):
         return total
 
     def total(self):
-        return self.subtotal() - self.discount_ammount
+        if self.promo:
+            return self.subtotal() - self.discount_ammount
+        else:
+            return self.subtotal()
 
 
 class LineItemOrder(models.Model):

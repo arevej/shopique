@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 import datetime
+from .forms import BuyerInfo
 
 def index(request):
     if 'query' in request.GET:
@@ -58,27 +59,29 @@ def decrement_qty(request, product_id):
 
 def place_order(request):
     if request.method == "GET":
-        return render(request, 'place_order.html', {})
+        form = BuyerInfo()
+        return render(request, 'place_order.html', {'form': form })
     else:
          basket = get_basket(request)
-         buyer_name = request.POST['buyer_name']
-         buyer_number = request.POST['buyer_number']
-         delivery_country = request.POST['delivery_country']
-         delivery_city = request.POST['delivery_city']
-         delivery_address = request.POST['delivery_address']
-         order = Order.objects.create(
-            buyer_name=buyer_name,
-            buyer_number=buyer_number,
-            delivery_country=delivery_country,
-            delivery_city=delivery_city,
-            delivery_address=delivery_address,
-            promo = basket.promo,
-            discount_ammount = basket.discount_ammount(),
-            order_date = datetime.datetime.today()
-         )
-         for lineitem in basket.lineitem_set.all():
-             order.lineitemorder_set.create(product=lineitem.product, product_price=lineitem.product.price, product_qty=lineitem.qty)
-         return HttpResponseRedirect(reverse('order_confirmation', args=(order.id,)))
+         form = BuyerInfo(request.POST)
+         if form.is_valid():
+             order = Order.objects.create(
+                buyer_name=form.cleaned_data['buyer_name'],
+                buyer_number=form.cleaned_data['buyer_number'],
+                delivery_country=form.cleaned_data['delivery_country'],
+                delivery_city=form.cleaned_data['delivery_city'],
+                delivery_address=form.cleaned_data['delivery_address'],
+                promo=basket.promo,
+                discount_ammount=basket.discount_ammount(),
+                order_date=datetime.datetime.today()
+             )
+             for lineitem in basket.lineitem_set.all():
+                 order.lineitemorder_set.create(product=lineitem.product, product_price=lineitem.product.price, product_qty=lineitem.qty)
+             del request.session['basket_id']
+             return HttpResponseRedirect(reverse('order_confirmation', args=(order.id,)))
+         else:
+             return render(request, 'place_order.html', {'form': form})
+
 
 def order_confirmation(request, order_id):
     order = Order.objects.get(pk=order_id)

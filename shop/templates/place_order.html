@@ -6,26 +6,7 @@
   <h3>Оформление заказа</h3>
   <form method="post">
     {% csrf_token %}
-    <label>
-      Страна:
-      <input type="text" name="delivery_country" value="">
-    </label>
-    <label>
-      Город:
-      <input type="text" name="delivery_city" value="">
-    </label>
-    <label>
-      Адрес:
-      <input type="text" name="delivery_address" value="">
-    </label>
-    <label>
-      Имя:
-      <input type="text" name="buyer_name" value="">
-    </label>
-    <label>
-      Номер телефона:
-      <input type="text" name="buyer_number" value="">
-    </label>
+    {{ form }}
     <button type="submit">Заказать</button>
   </form>
   <h3 class="total">Итого: {{ basket_total | format_money }}</h3>

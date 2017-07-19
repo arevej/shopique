@@ -86,12 +86,11 @@ class Basket(models.Model):
     def discount_ammount(self):
         if self.promo:
             return self.subtotal() * self.promo.discount_percent
+        else:
+            return 0
 
     def total(self):
-        if self.promo:
-            return self.subtotal()-self.discount_ammount()
-        else:
-            return self.subtotal()
+        return self.subtotal()-self.discount_ammount()
 
 class LineItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

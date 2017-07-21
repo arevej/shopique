@@ -25,7 +25,10 @@ SECRET_KEY = '^g$xk9i%4xcy+0zcaztp85l8_5#+itf&zq^j10lix95v&6%rpn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+APP_DOMAIN = '2108f91a.ngrok.io'
+PAYPAL_REAL = False
+
+ALLOWED_HOSTS = [APP_DOMAIN]
 
 
 # Application definition
@@ -37,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shop'
+    'shop',
+    'paypal.standard.ipn',
+    'payment'
 ]
 
 MIDDLEWARE = [
@@ -121,3 +126,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+PAYPAL_RECEIVER_EMAIL = 'artijoh@gmail.com'
+PAYPAL_TEST = True

@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
@@ -24,6 +24,8 @@ import os
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='main'),
+    url(r'^paypal/', include('paypal.standard.ipn.urls')),
+    url(r'^payment/', include('payment.urls', namespace='payment')),
     url(r'^basket/$', views.basket, name='basket'),
     url(r'^add_promo/$', views.add_promo, name='add_promo'),
     url(r'^category/(?P<category_name>[a-zA-Z0-9]+)/$', views.product_list, name='products'),

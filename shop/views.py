@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.core.urlresolvers import reverse
 from .models import Category, Product, Promo, Basket, LineItem, Order, LineItemOrder
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -78,7 +79,7 @@ def place_order(request):
              for lineitem in basket.lineitem_set.all():
                  order.lineitemorder_set.create(product=lineitem.product, product_price=lineitem.product.price, product_qty=lineitem.qty)
              del request.session['basket_id']
-             return HttpResponseRedirect(reverse('order_confirmation', args=(order.id,)))
+             return redirect(reverse('payment:process', args=(order.id,)))
          else:
              return render(request, 'place_order.html', {'form': form})
 

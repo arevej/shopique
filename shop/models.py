@@ -11,7 +11,7 @@ class Category(models.Model):
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     product_name = models.CharField(max_length=100)
-    price = models.FloatField()
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.CharField(max_length=10000)
     size = models.FloatField()
     weight = models.FloatField()
@@ -22,7 +22,7 @@ class Product(models.Model):
 
 class Promo(models.Model):
     promocode = models.CharField(max_length=30)
-    discount_percent = models.FloatField()
+    discount_percent = models.DecimalField(max_digits=6, decimal_places=2)
     start_date = models.DateTimeField(null=True, blank=True)
     end_date = models.DateTimeField(null=True, blank=True)
 
@@ -109,7 +109,8 @@ class Order(models.Model):
     delivery_address = models.CharField(max_length=100)
     order_date = models.DateTimeField()
     promo = models.ForeignKey(Promo, null=True, on_delete=models.PROTECT)
-    discount_ammount = models.FloatField()
+    discount_ammount = models.DecimalField(max_digits=6, decimal_places=2)
+    payment = models.BooleanField(default=False)
 
     def subtotal(self):
         total = 0
@@ -127,7 +128,7 @@ class Order(models.Model):
 class LineItemOrder(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    product_price = models.FloatField()
+    product_price = models.DecimalField(max_digits=6, decimal_places=2)
     product_qty = models.IntegerField(default=1)
 
     def total (self):

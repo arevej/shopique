@@ -33,7 +33,8 @@ def payment_done(request):
 
 @csrf_exempt
 def payment_canceled(request):
-    return render(request,'payment/canceled.html')
+    order = Order.objects.get(pk=order_id)
+    return redirect(reverse('payment:process', args=(order.id,)))
 
 def payment_process(request, order_id):
     order = Order.objects.get(pk=order_id)
@@ -44,9 +45,9 @@ def payment_process(request, order_id):
         "currency_code": "USD",
         "invoice": str(order.id),
         "rm": "2",
-        "notify_url": "http://" + settings.APP_DOMAIN + reverse('paypal-ipn'),
-        "return_url": "http://" + settings.APP_DOMAIN + reverse('payment:done'),
-        "cancel_return": "http://" + settings.APP_DOMAIN + reverse('payment:canceled'),
+        "notify_url": "https://" + settings.APP_DOMAIN + reverse('paypal-ipn'),
+        "return_url": "https://" + settings.APP_DOMAIN + reverse('payment:done'),
+        "cancel_return": "https://" + settings.APP_DOMAIN + reverse('payment:canceled'),
     }
     form = PayPalPaymentsForm(initial=paypal_dict)
     context = {"form": form}

@@ -129,3 +129,6 @@ STATIC_URL = '/static/'
 
 PAYPAL_RECEIVER_EMAIL = 'artijoh@gmail.com'
 PAYPAL_TEST = True
+
+DEFAULT_FROM_EMAIL = 'artijoh@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 

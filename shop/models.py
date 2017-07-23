@@ -104,6 +104,7 @@ class LineItem(models.Model):
 class Order(models.Model):
     buyer_name = models.CharField(max_length=30)
     buyer_number = models.CharField(max_length=15)
+    buyer_email = models.EmailField(max_length=30)
     delivery_country = models.CharField(max_length=100)
     delivery_city = models.CharField(max_length=100)
     delivery_address = models.CharField(max_length=100)

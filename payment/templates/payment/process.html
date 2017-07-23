@@ -4,6 +4,9 @@
 {% block content %}
 
 <h1>PayPal</h1>
-{{ form.render }}
-
+<div class="paypal">
+  Заказ №{{ order.id }}<br>
+  Сумма:{{ order.total | format_money }}
+  <p>{{ form.render }}</p>
+</div>
 {% endblock %}

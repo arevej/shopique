@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import datetime
 from .forms import BuyerInfo
+from django.core.mail import send_mail
+from django.conf import settings
 
 def index(request):
     if 'query' in request.GET:
@@ -71,6 +73,7 @@ def place_order(request):
              order = Order.objects.create(
                 buyer_name=form.cleaned_data['buyer_name'],
                 buyer_number=form.cleaned_data['buyer_number'],
+                buyer_email=form.cleaned_data['buyer_email'],
                 delivery_country=form.cleaned_data['delivery_country'],
                 delivery_city=form.cleaned_data['delivery_city'],
                 delivery_address=form.cleaned_data['delivery_address'],
@@ -80,6 +83,13 @@ def place_order(request):
              )
              for lineitem in basket.lineitem_set.all():
                  order.lineitemorder_set.create(product=lineitem.product, product_price=lineitem.product.price, product_qty=lineitem.qty)
+             send_mail(
+                 'Оплата заказа №{}'.format(order.id),
+                 'Чтобы оплатить заказ, перейдите по ссылке: https://{}{}'.format(settings.APP_DOMAIN, reverse('payment:process', args=(order.id,))),
+                 str(settings.DEFAULT_FROM_EMAIL),
+                 [str(order.buyer_email)],
+                 fail_silently=False,
+             )
              del request.session['basket_id']
              return redirect(reverse('payment:process', args=(order.id,)))
          else:
@@ -88,6 +98,13 @@ def place_order(request):
 
 def order_confirmation(request, order_id):
     order = Order.objects.get(pk=order_id)
+    send_mail(
+        'Заказ №{} принят'.format(order.id),
+        'Чтобы посмотреть заказ, перейдите по ссылке: https://{}{}'.format(settings.APP_DOMAIN, reverse('order_confirmation', args=(order.id,))),
+        str(settings.DEFAULT_FROM_EMAIL),
+        [str(order.buyer_email)],
+        fail_silently=False,
+    )
     return render(request, 'order_confirmation.html', {'order':order})
 
 def add_promo(request):

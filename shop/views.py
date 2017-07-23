@@ -59,11 +59,13 @@ def decrement_qty(request, product_id):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def place_order(request):
-    if request.method == "GET":
+    basket = get_basket(request)
+    if not basket.lineitem_set.all():
+        return redirect(reverse('main'))
+    elif request.method == "GET":
         form = BuyerInfo()
         return render(request, 'place_order.html', {'form': form })
     else:
-         basket = get_basket(request)
          form = BuyerInfo(request.POST)
          if form.is_valid():
              order = Order.objects.create(

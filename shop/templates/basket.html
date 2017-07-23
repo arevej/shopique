@@ -5,6 +5,7 @@
 
 <div class="basket">
   <h3>Корзина</h3>
+  {% if basket.lineitem_set.all %}
   <div class="product">
     {% for lineitem in basket.lineitem_set.all %}
       <div>
@@ -44,6 +45,9 @@
   <div class="buy-div">
     <a class="buy" href="{% url 'place_order' %}">Оформить заказ</a>
   </div>
+  {% else %}
+  Сначала нужно что-нибудь выбрать...
+  {% endif %}
 </div>
 
 
